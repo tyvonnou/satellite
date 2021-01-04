@@ -21,7 +21,7 @@ public class MonteSurfacePourSynchro extends DeplacementBalise {
 			target.setPosition(new Point(p.x, y));
 		} else {
 			target.getManager().baliseReadyForSynchro((Balise) target);
-			target.setDeplacement(this.next);			
+			target.setDeplacement(this.deplacementSuivant);			
 		}
 	}
 	
