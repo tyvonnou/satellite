@@ -2,7 +2,7 @@ package model.deplacement;
 
 import model.ElementMobile;
 
-public abstract class Deplacement {
-	abstract public void bouge(ElementMobile target) ;
-	public Deplacement replacement() { return this; }
+public interface Deplacement
+{
+  public void bouge(ElementMobile cible);
 }
