@@ -8,85 +8,79 @@ import events.positionchanged.PositionChanged;
 import model.deplacement.Deplacement;
 import simulation.Manager;
 
-public class ElementMobile {
-	Deplacement depl;
-	Point position;
-	EventHandler eventHandler;
-	int memorySize;
-	int dataSize;
-	Manager manager;
+public class ElementMobile
+{
+  Deplacement deplacement;
+  Point position;
 
-	public ElementMobile(int memorySize) {
-		eventHandler = new EventHandler();
-		this.memorySize = memorySize;
-		this.dataSize = 0;
-		this.position = new Point(0, 0);
-	}
+  EventHandler eventHandler;
+  Manager manager;
 
-	public int dataSize() {
-		return this.dataSize;
-	}
+  public ElementMobile()
+  {
+    eventHandler = new EventHandler();
+    this.position = new Point(0, 0);
+  }
 
-	public int memorySize() {
-		return this.memorySize;
-	}
+  public Deplacement deplacement()
+  {
+    return deplacement;
+  }
 
-	public Deplacement deplacement() {
-		return depl;
-	}
-	
-	public void setManager(Manager manager) {
-		this.manager = manager;
-		
-	}
-	
-	protected void resetData() {
-		this.dataSize = 0;
-	}
+  public void setManager(Manager manager)
+  {
+    this.manager = manager;
 
-	protected boolean memoryFull() {
-		return (this.dataSize >= this.memorySize);
-	}
+  }
 
-	// enregistrement des listeners
-	public void registerListener(Class<? extends AbstractEvent> whichEventType, Object listener) {
-		eventHandler.registerListener(whichEventType, listener);
-	}
+  // enregistrement des listeners
+  public void registerListener(Class<? extends AbstractEvent> whichEventType, Object listener)
+  {
+    eventHandler.registerListener(whichEventType, listener);
+  }
 
-	public void unregisterListener(Class<? extends AbstractEvent> whichEventType, Object listener) {
-		eventHandler.unregisterListener(whichEventType, listener);
-	}
+  public void unregisterListener(Class<? extends AbstractEvent> whichEventType, Object listener)
+  {
+    eventHandler.unregisterListener(whichEventType, listener);
+  }
 
-	// envoi des evenements
-	public void send(AbstractEvent event) {
-		eventHandler.send(event);
-	}
+  // envoi des evenements
+  public void send(AbstractEvent event)
+  {
+    eventHandler.send(event);
+  }
 
-	public void tick() {
-		this.bouge();
-	}
+  public void tick()
+  {
+    this.bouge();
+  }
 
-	public void bouge() {
-		this.depl.bouge(this);
-		this.send(new PositionChanged(this));
-	}
+  public void bouge()
+  {
+    this.deplacement.bouge(this);
+    this.send(new PositionChanged(this));
+  }
 
-	public void setPosition(Point position) {
-		if (this.position.equals(position))
-			return;
-		this.position = position;
-	}
+  public void setPosition(Point position)
+  {
+    if (this.position.equals(position))
+      return;
+    this.position = position;
+  }
 
-	public Point getPosition() {
-		return position;
-	}
+  public Point getPosition()
+  {
+    return position;
+  }
 
-	public void setDeplacement(Deplacement depl) {
-		this.depl = depl;
-	}
+  public void setDeplacement(Deplacement depl)
+  {
+    this.deplacement = depl;
+  }
 
-	public Manager getManager() {
-		return manager;
-	}
+  public Manager getManager()
+  {
+    return manager;
+  }
 
 }

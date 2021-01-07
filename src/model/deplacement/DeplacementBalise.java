@@ -14,11 +14,12 @@ public class DeplacementBalise implements Deplacement
   }
 
   @Override
-  public void bouge(ElementMobile target)
+  public void bouge(ElementMobile cible)
   {
-    this.bouge(target);
+    this.bouge(cible);
   }
 
+  // FIXME : Trouver alternative.
   public void whenSatelitteMoved(SatelitteMoved arg, Balise target)
   {}
 
