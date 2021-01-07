@@ -11,44 +11,34 @@ import model.deplacement.Redescendre;
 public class Balise extends ElementMobile implements SatelitteMovedListener
 {
 
-  Integer tailleMemoire;
-  Integer remplissageMemoire;
+  private static final int TAILLE_DONNEES_CAPTEURS = 1;
+
+  Memoire memoire;
+
+  public Balise(Memoire memoire)
+  {
+    super();
+    this.memoire = memoire;
+  }
 
   @Override
   public void tick()
   {
     this.lectureCapteurs();
-    if (this.memoirePleine())
+    if (this.memoire.memoirePleine())
     {
       Deplacement redescendre = new Redescendre(this.deplacement(), this.getProfondeur());
       Deplacement deplSynchro = new DeplSynchronisation(redescendre);
       Deplacement nextDepl = new MonteSurfacePourSynchro(deplSynchro);
       this.setDeplacement(nextDepl);
-      this.resetMemoire();
+      this.memoire.resetMemoire();
     }
     super.tick();
   }
 
-  public Balise(int tailleMemoire)
-  {
-    super();
-    this.tailleMemoire = tailleMemoire;
-    this.remplissageMemoire = 0;
-  }
-
   protected void lectureCapteurs()
   {
-    this.remplissageMemoire++;
-  }
-
-  protected void resetMemoire()
-  {
-    this.remplissageMemoire = 0;
-  }
-
-  protected boolean memoirePleine()
-  {
-    return (this.remplissageMemoire >= this.tailleMemoire);
+    this.memoire.ajoutDonnées(TAILLE_DONNEES_CAPTEURS);
   }
 
   // ================================================================================
@@ -71,13 +61,13 @@ public class Balise extends ElementMobile implements SatelitteMovedListener
     return this.getPosition().y;
   }
 
-  public int getTailleMemoire()
+  public Memoire getMemoire()
   {
-    return this.tailleMemoire;
+    return memoire;
   }
 
-  public int getRemplissageMemoire()
+  public void setMemoire(Memoire memoire)
   {
-    return this.remplissageMemoire;
+    this.memoire = memoire;
   }
 }
