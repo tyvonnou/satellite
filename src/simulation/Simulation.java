@@ -10,10 +10,10 @@ import graphiclayer.GSpace;
 import model.Balise;
 import model.Memoire;
 import model.Satelitte;
-import model.deplacement.DeplSatellite;
-import model.deplacement.DeplVertical;
 import model.deplacement.Deplacement;
 import model.deplacement.DeplacementHorizontal;
+import model.deplacement.DeplacementSatellite;
+import model.deplacement.DeplacementVertical;
 import simulation.graphic.GrBalise;
 import simulation.graphic.GrSatelitte;
 
@@ -39,9 +39,9 @@ public class Simulation
     }
   }
 
-  public void addBalise(GBounded sea, Memoire memoire, Point startPos, Deplacement depl)
+  public void addBalise(GBounded sea, Memoire memoire, Point startPos, Deplacement depl, int vitesse)
   {
-    Balise bal = new Balise(memoire);
+    Balise bal = new Balise(memoire, vitesse);
     bal.setPosition(startPos);
     bal.setDeplacement(depl);
     manager.addBalise(bal);
@@ -52,9 +52,9 @@ public class Simulation
 
   public void addSatelitte(GBounded sky, Point startPos, int vitesse)
   {
-    Satelitte sat = new Satelitte();
+    Satelitte sat = new Satelitte(vitesse);
     sat.setPosition(startPos);
-    sat.setDeplacement(new DeplSatellite(-10, 1000, vitesse));
+    sat.setDeplacement(new DeplacementSatellite(-10, 1000));
     manager.addSatellite(sat);
     GrSatelitte grSat = new GrSatelitte();
     grSat.setModel(sat);
@@ -77,11 +77,11 @@ public class Simulation
     this.addSatelitte(sky, new Point(400, 90), 3);
     this.addSatelitte(sky, new Point(500, 140), 4);
     this.addSatelitte(sky, new Point(600, 10), 1);
-    this.addBalise(sea, new Memoire(300), new Point(400, 200), new DeplacementHorizontal(50, 750));
-    this.addBalise(sea, new Memoire(400), new Point(100, 100), new DeplVertical(50, 200));
-    this.addBalise(sea, new Memoire(200), new Point(0, 160), new DeplacementHorizontal(0, 800));
-    this.addBalise(sea, new Memoire(500), new Point(200, 100), new DeplVertical(130, 270));
-    this.addBalise(sea, new Memoire(150), new Point(300, 100), new DeplacementHorizontal(200, 600));
+    this.addBalise(sea, new Memoire(300), new Point(400, 200), new DeplacementHorizontal(50, 750), 5);
+    this.addBalise(sea, new Memoire(400), new Point(100, 100), new DeplacementVertical(50, 200), 5);
+    this.addBalise(sea, new Memoire(200), new Point(0, 160), new DeplacementHorizontal(0, 800), 5);
+    this.addBalise(sea, new Memoire(500), new Point(200, 100), new DeplacementVertical(130, 270), 5);
+    this.addBalise(sea, new Memoire(150), new Point(300, 100), new DeplacementHorizontal(200, 600), 5);
     this.world.open();
     this.mainLoop();
   }

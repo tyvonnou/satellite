@@ -5,9 +5,9 @@ import events.satellitemoved.SatelitteMoved;
 public class Satelitte extends ElementMobile
 {
 
-  public Satelitte()
+  public Satelitte(int vitesse)
   {
-    super();
+    super(vitesse);
   }
 
   @Override

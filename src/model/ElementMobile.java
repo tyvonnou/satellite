@@ -12,42 +12,16 @@ public class ElementMobile
 {
   Deplacement deplacement;
   Point position;
+  Integer vitesse;
 
   EventHandler eventHandler;
   Manager manager;
 
-  public ElementMobile()
+  public ElementMobile(int vitesse)
   {
-    eventHandler = new EventHandler();
     this.position = new Point(0, 0);
-  }
-
-  public Deplacement deplacement()
-  {
-    return deplacement;
-  }
-
-  public void setManager(Manager manager)
-  {
-    this.manager = manager;
-
-  }
-
-  // enregistrement des listeners
-  public void registerListener(Class<? extends AbstractEvent> whichEventType, Object listener)
-  {
-    eventHandler.registerListener(whichEventType, listener);
-  }
-
-  public void unregisterListener(Class<? extends AbstractEvent> whichEventType, Object listener)
-  {
-    eventHandler.unregisterListener(whichEventType, listener);
-  }
-
-  // envoi des evenements
-  public void send(AbstractEvent event)
-  {
-    eventHandler.send(event);
+    this.vitesse = vitesse;
+    this.eventHandler = new EventHandler();
   }
 
   public void tick()
@@ -61,21 +35,57 @@ public class ElementMobile
     this.send(new PositionChanged(this));
   }
 
-  public void setPosition(Point position)
+  // ================================================================================
+  // Evenements
+  // ================================================================================
+
+  public void registerListener(Class<? extends AbstractEvent> whichEventType, Object listener)
   {
-    if (this.position.equals(position))
-      return;
-    this.position = position;
+    eventHandler.registerListener(whichEventType, listener);
+  }
+
+  public void unregisterListener(Class<? extends AbstractEvent> whichEventType, Object listener)
+  {
+    eventHandler.unregisterListener(whichEventType, listener);
+  }
+
+  public void send(AbstractEvent event)
+  {
+    eventHandler.send(event);
+  }
+
+  // ================================================================================
+  // Accesseurs
+  // ================================================================================
+
+  public Deplacement getDeplacement()
+  {
+    return this.deplacement;
+  }
+
+  public void setDeplacement(Deplacement deplacement)
+  {
+    this.deplacement = deplacement;
   }
 
   public Point getPosition()
   {
-    return position;
+    return this.position;
   }
 
-  public void setDeplacement(Deplacement depl)
+  public void setPosition(Point position)
   {
-    this.deplacement = depl;
+    this.position = position;
+  }
+
+  public Integer getVitesse()
+  {
+    return vitesse;
+  }
+
+  public void setVitesse(Integer vitesse)
+  {
+    this.vitesse = vitesse;
   }
 
   public Manager getManager()
@@ -83,4 +93,8 @@ public class ElementMobile
     return manager;
   }
 
+  public void setManager(Manager manager)
+  {
+    this.manager = manager;
+  }
 }

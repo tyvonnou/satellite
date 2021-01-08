@@ -15,9 +15,9 @@ public class Balise extends ElementMobile implements SatelitteMovedListener
 
   Memoire memoire;
 
-  public Balise(Memoire memoire)
+  public Balise(Memoire memoire, int vitesse)
   {
-    super();
+    super(vitesse);
     this.memoire = memoire;
   }
 
@@ -27,7 +27,7 @@ public class Balise extends ElementMobile implements SatelitteMovedListener
     this.lectureCapteurs();
     if (this.memoire.memoirePleine())
     {
-      Deplacement redescendre = new Redescendre(this.deplacement(), this.getProfondeur());
+      Deplacement redescendre = new Redescendre(this.getDeplacement(), this.getProfondeur());
       Deplacement deplSynchro = new DeplSynchronisation(redescendre);
       Deplacement nextDepl = new MonteSurfacePourSynchro(deplSynchro);
       this.setDeplacement(nextDepl);

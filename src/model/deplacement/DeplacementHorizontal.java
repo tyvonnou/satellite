@@ -6,35 +6,42 @@ import model.ElementMobile;
 
 public class DeplacementHorizontal extends DeplacementBalise
 {
-  Integer start;
-  Integer end;
-  Boolean fromStartToEnd = true;
+  Integer debut;
+  Integer fin;
+  boolean debutVersFin = true;
 
-  public DeplacementHorizontal(Integer start, Integer end)
+  public DeplacementHorizontal(Integer start, Integer fin)
   {
     super(null);
-    this.start = start;
-    this.end = end;
+    this.debut = start;
+    this.fin = fin;
   }
 
   @Override
-  public void bouge(ElementMobile target)
+  public void bouge(ElementMobile cible)
   {
-    Point p = target.getPosition();
-    int x = p.x;
-    if (fromStartToEnd)
+    Point position = cible.getPosition();
+    int x = position.x;
+
+    if (this.debutVersFin)
     {
-      x += 6;
-      if (x > end)
-        fromStartToEnd = false;
+      x += cible.getVitesse();
+      if (x >= fin)
+      {
+        x = this.fin;
+        this.debutVersFin = false;
+      }
     }
     else
     {
-      x -= 2;
-      if (x < start)
-        fromStartToEnd = true;
+      x -= cible.getVitesse();
+      if (x <= this.debut)
+      {
+        x = this.debut;
+        debutVersFin = true;
+      }
     }
-    target.setPosition(new Point(x, p.y));
-  }
 
+    cible.setPosition(new Point(x, position.y));
+  }
 }
