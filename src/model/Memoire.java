@@ -11,11 +11,11 @@ public class Memoire
     this.remplissageMemoire = 0;
   }
 
-  protected void ajoutDonnées(int données)
+  public void ajoutDonnees(int donnees)
   {
-    if (this.remplissageMemoire + données <= this.tailleMemoire)
+    if (this.remplissageMemoire + donnees <= this.tailleMemoire)
     {
-      this.remplissageMemoire += données;
+      this.remplissageMemoire += donnees;
     }
     else
     {
@@ -23,12 +23,12 @@ public class Memoire
     }
   }
 
-  protected void resetMemoire()
+  public void resetMemoire()
   {
     this.remplissageMemoire = 0;
   }
 
-  protected boolean memoirePleine()
+  public boolean memoirePleine()
   {
     return (this.remplissageMemoire == this.tailleMemoire);
   }

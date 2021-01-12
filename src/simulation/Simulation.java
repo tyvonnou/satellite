@@ -8,6 +8,7 @@ import graphiclayer.GBounded;
 import graphiclayer.GRect;
 import graphiclayer.GSpace;
 import model.Balise;
+import model.BaliseCollecte;
 import model.Memoire;
 import model.Satelitte;
 import model.deplacement.Deplacement;
@@ -41,12 +42,14 @@ public class Simulation
 
   public void addBalise(GBounded sea, Memoire memoire, Point startPos, Deplacement depl, int vitesse)
   {
-    Balise bal = new Balise(memoire, vitesse);
-    bal.setPosition(startPos);
-    bal.setDeplacement(depl);
-    manager.addBalise(bal);
+    Balise balise = new Balise(memoire, vitesse);
+    balise.setPosition(startPos);
+    balise.setDeplacementCollecte(depl);
+    balise.setProfondeurCollecte(startPos.y);
+    balise.setEtat(new BaliseCollecte(balise));
+    manager.addBalise(balise);
     GrBalise grbal = new GrBalise();
-    grbal.setModel(bal);
+    grbal.setModel(balise);
     sea.addElement(grbal);
   }
 
@@ -77,7 +80,7 @@ public class Simulation
     this.addSatelitte(sky, new Point(400, 90), 3);
     this.addSatelitte(sky, new Point(500, 140), 4);
     this.addSatelitte(sky, new Point(600, 10), 1);
-    this.addBalise(sea, new Memoire(300), new Point(400, 200), new DeplacementHorizontal(50, 750), 5);
+    this.addBalise(sea, new Memoire(100), new Point(400, 200), new DeplacementHorizontal(50, 750), 5);
     this.addBalise(sea, new Memoire(400), new Point(100, 100), new DeplacementVertical(50, 200), 5);
     this.addBalise(sea, new Memoire(200), new Point(0, 160), new DeplacementHorizontal(0, 800), 5);
     this.addBalise(sea, new Memoire(500), new Point(200, 100), new DeplacementVertical(130, 270), 5);

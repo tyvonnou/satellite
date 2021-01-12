@@ -6,12 +6,6 @@ import model.ElementMobile;
 
 public class DeplacementBalise implements Deplacement
 {
-  protected Deplacement deplacementSuivant;
-
-  public DeplacementBalise(Deplacement deplacementSuivant)
-  {
-    this.deplacementSuivant = deplacementSuivant;
-  }
 
   @Override
   public void bouge(ElementMobile cible)

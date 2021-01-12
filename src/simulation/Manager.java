@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import events.satellitemoved.SatelitteMoved;
 import model.Balise;
 import model.Satelitte;
+import model.deplacement.SynchronisationBalise;
 
 public class Manager
 {
@@ -35,7 +36,7 @@ public class Manager
     }
   }
 
-  public void baliseReadyForSynchro(Balise b)
+  public void baliseReadyForSynchro(SynchronisationBalise b)
   {
     for (Satelitte s : this.sats)
     {
@@ -43,7 +44,7 @@ public class Manager
     }
   }
 
-  public void baliseSynchroDone(Balise b)
+  public void baliseSynchroDone(SynchronisationBalise b)
   {
     for (Satelitte s : this.sats)
     {

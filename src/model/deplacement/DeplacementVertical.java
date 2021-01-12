@@ -12,7 +12,6 @@ public class DeplacementVertical extends DeplacementBalise
 
   public DeplacementVertical(Integer debut, Integer fin)
   {
-    super(null);
     this.debut = debut;
     this.fin = fin;
   }

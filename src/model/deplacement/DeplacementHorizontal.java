@@ -12,7 +12,6 @@ public class DeplacementHorizontal extends DeplacementBalise
 
   public DeplacementHorizontal(Integer start, Integer fin)
   {
-    super(null);
     this.debut = start;
     this.fin = fin;
   }

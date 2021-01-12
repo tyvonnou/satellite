@@ -10,14 +10,16 @@ public class EventHandler {
 	
 	Map<Class<? extends AbstractEvent>,Set<Object>> registry = new HashMap<Class<? extends AbstractEvent>,Set<Object>>();
 	
-	public void send (AbstractEvent event) {
-		Set<Object> l = registry.get(event.getClass());
-		if (l == null) return;
-		Iterator<Object> itor = l.iterator();
-		while (itor.hasNext()) {
-			event.runOn(itor.next());
-		}
-	}
+  public void send (AbstractEvent event) {
+    Set<Object> objects = registry.get(event.getClass());
+    if (objects == null) return;
+    Object[] objectsArray = objects.toArray();
+    for(int i = 0; i < objectsArray.length; i++){
+      if(objectsArray[i] != null){
+        event.runOn(objectsArray[i]);
+      }
+    }
+  }
 
 	public void registerListener(Class<? extends AbstractEvent> whichEventType, Object listener) {
 		Set<Object> set = registry.get(whichEventType);

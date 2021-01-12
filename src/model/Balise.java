@@ -1,18 +1,15 @@
 package model;
 
-import events.satellitemoved.SatelitteMoved;
-import events.satellitemoved.SatelitteMovedListener;
-import model.deplacement.DeplSynchronisation;
 import model.deplacement.Deplacement;
-import model.deplacement.DeplacementBalise;
-import model.deplacement.MonteSurfacePourSynchro;
-import model.deplacement.Redescendre;
 
-public class Balise extends ElementMobile implements SatelitteMovedListener
+public class Balise extends ElementMobile
 {
 
   private static final int TAILLE_DONNEES_CAPTEURS = 1;
 
+  EtatBalise etat;
+  Deplacement deplacementCollecte;
+  Integer profondeurCollecte;
   Memoire memoire;
 
   public Balise(Memoire memoire, int vitesse)
@@ -24,41 +21,46 @@ public class Balise extends ElementMobile implements SatelitteMovedListener
   @Override
   public void tick()
   {
-    this.lectureCapteurs();
-    if (this.memoire.memoirePleine())
-    {
-      Deplacement redescendre = new Redescendre(this.getDeplacement(), this.getProfondeur());
-      Deplacement deplSynchro = new DeplSynchronisation(redescendre);
-      Deplacement nextDepl = new MonteSurfacePourSynchro(deplSynchro);
-      this.setDeplacement(nextDepl);
-      this.memoire.resetMemoire();
-    }
-    super.tick();
+    this.etat.action(this);
   }
 
-  protected void lectureCapteurs()
+  public void lectureCapteurs()
   {
-    this.memoire.ajoutDonnées(TAILLE_DONNEES_CAPTEURS);
-  }
-
-  // ================================================================================
-  // Évenements
-  // ================================================================================
-
-  @Override
-  public void whenSatelitteMoved(SatelitteMoved arg)
-  {
-    DeplacementBalise dp = (DeplacementBalise) this.deplacement;
-    dp.whenSatelitteMoved(arg, this);
+    this.memoire.ajoutDonnees(TAILLE_DONNEES_CAPTEURS);
   }
 
   // ================================================================================
   // Accesseurs
   // ================================================================================
 
-  public int getProfondeur()
+  public EtatBalise getEtat()
   {
-    return this.getPosition().y;
+    return etat;
+  }
+
+  public void setEtat(EtatBalise etat)
+  {
+    this.etat = etat;
+  }
+
+  public Deplacement getDeplacementCollecte()
+  {
+    return deplacementCollecte;
+  }
+
+  public void setDeplacementCollecte(Deplacement deplacementCollecte)
+  {
+    this.deplacementCollecte = deplacementCollecte;
+  }
+
+  public Integer getProfondeurCollecte()
+  {
+    return profondeurCollecte;
+  }
+
+  public void setProfondeurCollecte(Integer profondeurCollecte)
+  {
+    this.profondeurCollecte = profondeurCollecte;
   }
 
   public Memoire getMemoire()
@@ -69,5 +71,10 @@ public class Balise extends ElementMobile implements SatelitteMovedListener
   public void setMemoire(Memoire memoire)
   {
     this.memoire = memoire;
+  }
+
+  public int getProfondeur()
+  {
+    return this.getPosition().y;
   }
 }
