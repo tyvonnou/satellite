@@ -1,4 +1,4 @@
-package model.deplacement;
+package model.strategie.deplacement;
 
 import java.awt.Point;
 

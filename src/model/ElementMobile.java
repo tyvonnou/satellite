@@ -3,12 +3,13 @@ package model;
 import java.awt.Point;
 
 import events.AbstractEvent;
+import events.Emitter;
 import events.EventHandler;
-import events.positionchanged.PositionChanged;
-import model.deplacement.Deplacement;
+import events.positionchange.PositionChange;
+import model.strategie.deplacement.Deplacement;
 import simulation.Manager;
 
-public class ElementMobile
+public class ElementMobile implements Emitter
 {
   Deplacement deplacement;
   Point position;
@@ -32,26 +33,29 @@ public class ElementMobile
   public void bouge()
   {
     this.deplacement.bouge(this);
-    this.send(new PositionChanged(this));
+    this.send(new PositionChange(this));
   }
 
   // ================================================================================
   // Evenements
   // ================================================================================
 
-  public void registerListener(Class<? extends AbstractEvent> whichEventType, Object listener)
-  {
-    eventHandler.registerListener(whichEventType, listener);
-  }
-
-  public void unregisterListener(Class<? extends AbstractEvent> whichEventType, Object listener)
-  {
-    eventHandler.unregisterListener(whichEventType, listener);
-  }
-
+  @Override
   public void send(AbstractEvent event)
   {
     eventHandler.send(event);
+  }
+
+  @Override
+  public void registerListener(Class<? extends AbstractEvent> eventType, Object listener)
+  {
+    eventHandler.registerListener(eventType, listener);
+  }
+
+  @Override
+  public void unregisterListener(Class<? extends AbstractEvent> eventType, Object listener)
+  {
+    eventHandler.unregisterListener(eventType, listener);
   }
 
   // ================================================================================

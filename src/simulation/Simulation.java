@@ -7,20 +7,19 @@ import java.awt.Point;
 import graphiclayer.GBounded;
 import graphiclayer.GRect;
 import graphiclayer.GSpace;
-import model.Balise;
-import model.BaliseCollecte;
 import model.Memoire;
-import model.Satelitte;
-import model.deplacement.Deplacement;
-import model.deplacement.DeplacementHorizontal;
-import model.deplacement.DeplacementSatellite;
-import model.deplacement.DeplacementVertical;
+import model.Satellite;
+import model.balise.Balise;
+import model.balise.etats.BaliseCollecte;
+import model.strategie.deplacement.Deplacement;
+import model.strategie.deplacement.DeplacementHorizontal;
+import model.strategie.deplacement.DeplacementSatellite;
+import model.strategie.deplacement.DeplacementVertical;
 import simulation.graphic.GrBalise;
 import simulation.graphic.GrSatelitte;
 
 public class Simulation
 {
-
   Manager manager = new Manager();
   GSpace world = new GSpace("Satellite & Balises", new Dimension(800, 600));
 
@@ -55,7 +54,7 @@ public class Simulation
 
   public void addSatelitte(GBounded sky, Point startPos, int vitesse)
   {
-    Satelitte sat = new Satelitte(vitesse);
+    Satellite sat = new Satellite(vitesse);
     sat.setPosition(startPos);
     sat.setDeplacement(new DeplacementSatellite(-10, 1000));
     manager.addSatellite(sat);

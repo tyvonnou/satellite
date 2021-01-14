@@ -2,53 +2,53 @@ package simulation;
 
 import java.util.ArrayList;
 
-import events.satellitemoved.SatelitteMoved;
-import model.Balise;
-import model.Satelitte;
-import model.deplacement.SynchronisationBalise;
+import events.satellitebouge.SatelitteBouge;
+import model.Satellite;
+import model.balise.Balise;
+import model.strategie.SynchronisationBalise;
 
 public class Manager
 {
-  ArrayList<Satelitte> sats = new ArrayList<Satelitte>();
-  ArrayList<Balise> bals = new ArrayList<Balise>();
+  ArrayList<Satellite> satellites = new ArrayList<>();
+  ArrayList<Balise> balises = new ArrayList<>();
 
-  public void addBalise(Balise bal)
+  public void addBalise(Balise balise)
   {
-    bals.add(bal);
-    bal.setManager(this);
+    balises.add(balise);
+    balise.setManager(this);
   }
 
-  public void addSatellite(Satelitte sat)
+  public void addSatellite(Satellite satellite)
   {
-    this.sats.add(sat);
-    sat.setManager(this);
+    this.satellites.add(satellite);
+    satellite.setManager(this);
   }
 
   public void tick()
   {
-    for (Balise b : this.bals)
+    for (Balise balise : this.balises)
     {
-      b.tick();
+      balise.tick();
     }
-    for (Satelitte s : this.sats)
+    for (Satellite satellite : this.satellites)
     {
-      s.tick();
-    }
-  }
-
-  public void baliseReadyForSynchro(SynchronisationBalise b)
-  {
-    for (Satelitte s : this.sats)
-    {
-      s.registerListener(SatelitteMoved.class, b);
+      satellite.tick();
     }
   }
 
-  public void baliseSynchroDone(SynchronisationBalise b)
+  public void baliseReadyForSynchro(SynchronisationBalise synchroBalise)
   {
-    for (Satelitte s : this.sats)
+    for (Satellite satellite : this.satellites)
     {
-      s.unregisterListener(SatelitteMoved.class, b);
+      satellite.registerListener(SatelitteBouge.class, synchroBalise);
+    }
+  }
+
+  public void baliseSynchroDone(SynchronisationBalise synchroBalise)
+  {
+    for (Satellite satellite : this.satellites)
+    {
+      satellite.unregisterListener(SatelitteBouge.class, synchroBalise);
     }
   }
 

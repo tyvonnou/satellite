@@ -1,6 +1,9 @@
-package model;
+package model.balise;
 
-import model.deplacement.Deplacement;
+import model.ElementMobile;
+import model.Memoire;
+import model.balise.etats.EtatBalise;
+import model.strategie.deplacement.Deplacement;
 
 public class Balise extends ElementMobile
 {
@@ -24,6 +27,9 @@ public class Balise extends ElementMobile
     this.etat.action(this);
   }
 
+  /**
+   * Enregistrement des données récoltées par les capteurs de la balise.
+   */
   public void lectureCapteurs()
   {
     this.memoire.ajoutDonnees(TAILLE_DONNEES_CAPTEURS);
